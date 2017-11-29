@@ -1,0 +1,10 @@
+//hey buddy
+
+void main() {
+
+//hey buddy
+
+	int b;
+	int i = 35;
+	int b = int i + 51;
+}

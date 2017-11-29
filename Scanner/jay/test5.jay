@@ -1,0 +1,8 @@
+void main() {
+	boolean tf;
+	boolean ft;
+	int i;
+	if(tf != true && ft != false) {
+		i = 4;
+	}
+}

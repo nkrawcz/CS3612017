@@ -1,0 +1,10 @@
+void main() {
+	int i;
+	int b = 5 * 6;
+	if (b >= 30) {
+		i = 2;
+	}
+	else {
+		i = 0;
+	}
+}
