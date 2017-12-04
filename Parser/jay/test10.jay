@@ -1,0 +1,9 @@
+public class TailEx {
+	public void printName(int level){
+	    if( level <= 0 )
+	         return;
+	    System.out.println("Smith");
+	    printName(--level);
+	    
+	}
+}
