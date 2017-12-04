@@ -1,6 +1,6 @@
 // ConcreteSyntax.java
 
-// By Gianna Sorrentino and Nick Krawczeniuk
+// By Nick Krawczeniuk and Gianna Sorrentino
 
 // Implementation of the Scanner for JAY
 
@@ -55,25 +55,26 @@ public class TokenStream {
 			// there
 			// are two comment lines in a row.
 			nextChar = readChar();
-			if (nextChar == '/') { // If / is followed by another /
-				// skip rest of line - it's a comment.
+			if (nextChar == '/') { 
 				while(!isEndOfLine(nextChar)) {
 					nextChar = readChar();
-					t.setValue("Comment");}
+				}
+				
+				if (isEndOfLine(readChar())) {
+					nextChar = readChar();
+				}
 			}
-			// look for <cr>, <lf>, <ff>
-			// nextChar = readChar();
-			// if(nextChar == '<') {
-			//	return t;}
-
-			//else (nextChar == '>') 
-			//return t;
-
-			//else (nextChar == '<ff>') {
-			//	t.setType("Operator");
-			//	return t;}
+			else {
+				// A slash followed by anything else must be an operator.
+				t.setValue("/");
+				t.setType("Operator");
+				return t;
+		}
+	}		
+			
+		
 	//	}
-		else {
+		/* else {
 			// A slash followed by a backslash is an AND operator (/\).
 			// 92 is \, the number is used since \ causes an error.
 			if (nextChar == 92) {
@@ -82,21 +83,16 @@ public class TokenStream {
 					t.setType("Operator");
 					t.setValue("/\\ ");
 					return t;
-				}
-
-			} else
-				// A slash followed by anything else must be an operator.
-				t.setValue("/");
-			t.setType("Operator");
-			return t;
-		}
-	}
+				} */
+		
+		
 
 	// Then check for an operator; recover 2-character operators
 	// as well as 1-character ones.
 	if (isOperator(nextChar)) {
 		t.setType("Operator");
 		t.setValue(t.getValue() + nextChar);
+		nextChar = readChar();
 		switch (nextChar) {
 		case '<':
 			nextChar = readChar();
@@ -119,14 +115,17 @@ public class TokenStream {
 		case '!':
 			nextChar = readChar();
 			if(t.getValue().equals("")) {
-				t.setType("Operator");}
+				t.setType("Operator");
+			}
 			else if(nextChar == '=') {
 				t.setValue("!=");
-				t.setType("Operator");}
+				t.setType("Operator");
+			} 
 			else {
 				nextChar = readChar();
-			return t;
+				return t;
 			}
+			
 		case 92: 
 			// look for the OR operator, \/
 			// Completed
